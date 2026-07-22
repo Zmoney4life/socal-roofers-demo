@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orange County&#x27;s Trusted Roofers | SoCal Roofers</title>
+<meta name="description" content="SoCal Roofers: roofing Southern California since 2012. New roofs, repairs and 24-hour leak service across Orange County. Book a free roof inspection." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="stylesheet" href="index.css" />
+<style>
+  :root{
+    --font-heading:'Inter',system-ui,-apple-system,sans-serif;
+    --font-sans:'Inter',system-ui,-apple-system,sans-serif;
+    --primary:#2563eb;
+    --accent:#ebad25;
+  }
+  html{ scroll-behavior:smooth; }
+  body{ font-family:var(--font-sans); }
+  section[id]{ scroll-margin-top:5.5rem; }
+  .fade-in{ animation:fadeIn .25s ease-out; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+  .wordmark{ font-family:var(--font-heading); font-weight:800; letter-spacing:-.02em; }
+  /* Hero photo is texture behind the type, never competition for it. On a phone
+     the image is cropped to a narrow slice and gets busy, so the scrim goes
+     deeper there. */
+  .hero-scrim{ background:linear-gradient(115deg,rgba(20,28,43,.95) 0%,rgba(27,39,64,.86) 52%,rgba(34,50,74,.7) 100%); }
+  /* utilities not present in the purged Tailwind build */
+  .w-16{width:4rem}.h-16{height:4rem}
+  .w-2\.5{width:.625rem}.h-2\.5{height:.625rem}.gap-0\.5{gap:.125rem}
+  .py-12{padding-top:3rem;padding-bottom:3rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}
+  .px-7{padding-left:1.75rem;padding-right:1.75rem}.mt-6{margin-top:1.5rem}
+  .max-w-5xl{max-width:64rem}.max-w-\[220px\]{max-width:220px}
+  .shadow-xl{box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1)}
+  .min-h-\[90vh\]{min-height:90vh}.aspect-\[4\/3\]{aspect-ratio:4/3}.w-\[420px\]{width:420px}
+  @media (min-width:640px){.sm\:inline-flex{display:inline-flex}}
+  @media (min-width:1024px){.lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.lg\:w-\[420px\]{width:420px}}
+  /* brand-colour hooks - keep the purged build brand-agnostic */
+  .brand-bg{background:var(--primary)!important}
+  .brand-text{color:var(--primary)!important}
+  .brand-border{border-color:var(--primary)!important}
+  .brand-tint{background:color-mix(in srgb,var(--primary) 8%,#fff)!important}
+  .brand-hover-border:hover{border-color:color-mix(in srgb,var(--primary) 45%,#fff)!important}
+  .brand-focus:focus{border-color:var(--primary)!important}
+  /* top nav */
+  .nav-links{ display:none; }
+  @media (min-width:900px){ .nav-links{ display:flex; align-items:center; gap:2.25rem; } }
+  .navlink{ position:relative; font-size:.9rem; font-weight:500; color:#4b5563; transition:color .2s; }
+  .navlink:hover{ color:#1a1a1a; }
+  .navlink::after{ content:""; position:absolute; left:0; bottom:-5px; height:2px; width:0; background:var(--primary); transition:width .3s; }
+  .navlink:hover::after{ width:100%; }
+
+  /* ---------------- responsive ----------------
+     Tailwind flex items keep min-width:auto, so a nowrap child (the hero trust
+     badge) can force the whole page wider than the phone viewport. Letting the
+     column shrink is what stops the sideways scroll. */
+  #hero .flex-1{ min-width:0; }
+
+  /* mobile nav (checkbox toggle, no JS needed to open) */
+  .nav-check{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+  .nav-burger{ display:none; }
+  @media (max-width:899px){
+    .nav-burger{ display:inline-flex; align-items:center; justify-content:center;
+      width:2.6rem; height:2.6rem; border-radius:.6rem; border:1px solid #e5e7eb;
+      background:#fff; color:#1a1a1a; cursor:pointer; flex-shrink:0; }
+    .nav-links{ display:none; position:absolute; top:calc(100% + .5rem); left:0; right:0;
+      flex-direction:column; align-items:stretch; gap:0; background:#fff;
+      border:1px solid #e5e7eb; border-radius:.75rem; padding:.4rem;
+      box-shadow:0 14px 30px rgba(0,0,0,.12); z-index:60; }
+    .nav-check:checked ~ div .nav-links{ display:flex; }
+    .nav-links .navlink{ padding:.75rem .8rem; border-radius:.5rem; font-size:.95rem; }
+    .nav-links .navlink:hover{ background:#f5f5f5; }
+    .nav-links .navlink::after{ display:none; }
+  }
+
+  /* below the lg breakpoint the hero stacks: headline and the trust points sit
+     above the fold, the form follows underneath. Sell first, then ask. */
+  @media (max-width:1023px){
+    .hero-scrim{ background:linear-gradient(168deg,rgba(9,17,30,.95) 0%,rgba(13,25,43,.90) 40%,rgba(20,42,68,.70) 100%); }
+    #hero .items-center{ align-items:stretch; }
+    #hero .gap-12{ gap:0; }
+    /* fill the first screen with the headline and trust points so the form
+       starts below the fold. svh is the height with the browser chrome showing,
+       which is the height actually guaranteed visible on a phone. */
+    #hero .flex-1{
+      display:flex; flex-direction:column; justify-content:center;
+      min-height:calc(100vh - 7rem);
+      min-height:calc(100svh - 7rem);
+    }
+    .hero-bullets{ margin-bottom:0; }
+    .hero-form{ margin-top:2.25rem; }
+  }
+
+  /* phone */
+  @media (max-width:640px){
+    header .h-20{ height:4.75rem; }
+    section[id]{ scroll-margin-top:5rem; }
+    .hdr-cta{ padding-left:.8rem; padding-right:.8rem; font-size:.78rem; }
+    #hero{ min-height:0; }
+    #hero .py-16{ padding-top:1.25rem; padding-bottom:2.25rem; }
+    /* Phone hero is sized to fill the screen rather than float in it: roughly
+       80% of the fold is type, matching a full-page reference build. */
+    #hero h1{ font-size:2.35rem; line-height:1.26; margin-bottom:2.4rem; }
+    .hero-badge{ padding:.75rem 1rem; margin-bottom:2rem; }
+    .hero-badge .text-sm{ font-size:.88rem; line-height:1.3; white-space:normal; }
+    .hero-badge svg{ width:18px; height:18px; }
+    .hero-sub{ font-size:1.2rem; line-height:1.55; margin-bottom:2.8rem; }
+    .hero-bullets{ gap:1.15rem; }
+    .hero-bullets .text-base{ font-size:1.05rem; }
+    .hero-bullets .gap-3{ gap:.9rem; }
+    .hero-form .p-6{ padding:1.1rem; }
+    .py-20{ padding-top:3rem; padding-bottom:3rem; }
+    .text-3xl{ font-size:1.6rem; line-height:1.2; }
+    .mb-12{ margin-bottom:1.75rem; }
+    #projects .gap-4{ gap:.55rem; }
+    #services .gap-6{ gap:1rem; }
+    #latest .gap-12{ gap:2rem; }
+    #contact .text-xl{ font-size:1.05rem; }
+    #contact .px-8{ padding-left:1.1rem; padding-right:1.1rem; }
+    /* centred bullet rows go ragged once one of them wraps, so left-align them */
+    #services .mt-10{ align-items:stretch; }
+    #services .mt-10 > div{ align-items:flex-start; text-align:left; }
+    #services .mt-10 > div svg{ margin-top:.15rem; }
+    #projects .mt-12 > div{ justify-content:flex-start; }
+    footer .py-16{ padding-top:2.5rem; padding-bottom:2.5rem; }
+    footer .gap-10{ gap:2rem; }
+  }
+
+  /* ---- address autocomplete ---- */
+  .ac-wrap{ position:relative; }
+  .ac-list{ position:absolute; z-index:70; top:calc(100% + 4px); left:0; right:0;
+    margin:0; padding:.25rem; list-style:none; background:#fff; border:1px solid #e5e7eb;
+    border-radius:.6rem; box-shadow:0 12px 26px rgba(0,0,0,.13); max-height:14rem;
+    overflow-y:auto; }
+  .ac-list[hidden]{ display:none; }
+  .ac-item{ padding:.55rem .6rem; border-radius:.4rem; font-size:.85rem; color:#1f2937;
+    cursor:pointer; line-height:1.35; }
+  .ac-item:hover, .ac-item[aria-selected="true"]{ background:color-mix(in srgb,var(--primary) 9%,#fff); }
+  .ac-hint{ font-size:.68rem; color:#9ca3af; margin-top:.35rem; }
+
+  /* iOS zooms the viewport whenever a focused input is under 16px. Keep form
+     inputs at 16px on touch-sized screens so tapping a field never zooms. */
+  @media (max-width:1023px){
+    #estimate-form input, #estimate-form select, #estimate-form textarea{ font-size:16px; }
+  }
+</style>
+</head>
+<body>
+<input type="checkbox" id="navtoggle" class="nav-check" aria-hidden="true" tabindex="-1" />
+<div class="min-h-screen bg-background flex flex-col">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div class="container mx-auto px-4">
+      <div class="flex h-20 items-center justify-between" style="position:relative">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <img src="assets/img/logo.png" alt="SoCal Roofers" style="height:46px;width:auto;display:block" />
+        </a>
+        <nav class="nav-links">
+          <a href="#services" class="navlink">Services</a>
+          <a href="#projects" class="navlink">Projects</a>
+          <a href="#about" class="navlink">About</a>
+          <a href="#contact" class="navlink">Contact</a>
+        </nav>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="#estimate-form" class="hdr-cta inline-flex items-center px-5 py-2.5 rounded-lg text-white font-bold text-sm transition-opacity hover:opacity-90 shrink-0 brand-bg">Free Inspection</a>
+          <label for="navtoggle" class="nav-burger" aria-label="Open menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+          </label>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="relative min-h-[90vh] flex items-stretch">
+    <div class="absolute inset-0 z-0"><img src="assets/img/hero.jpg" alt="SoCal Roofers crew member installing roof insulation board on a Southern California commercial roof" class="w-full h-full object-cover"/><div class="absolute inset-0 hero-scrim"></div></div>
+    <div class="relative z-10 container mx-auto px-4 py-16 flex flex-col lg:flex-row items-center gap-12 w-full">
+      <div class="flex-1 text-white">
+        <div class="hero-badge inline-flex items-center gap-2.5 px-5 py-3 rounded-full mb-6 bg-white shadow-md">
+          <div class="flex items-center gap-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></div>
+          <span class="text-gray-900 font-bold text-sm whitespace-nowrap">Rated 5.0 On Google</span>
+        </div>
+        <h1 class="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-5 text-white" style="font-family:var(--font-heading);color:#ffffff">Orange County&#x27;s Trusted Roofing Experts</h1>
+        <p class="hero-sub text-gray-300 text-lg leading-relaxed mb-8 max-w-xl">New roofs, repairs, and 24-hour leak service across Orange County.</p>
+        <div class="hero-bullets flex flex-col gap-4 mb-8">
+          <div class="flex items-center gap-3 text-base font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span>Free Roof Inspection, No Upsells</span></div>
+          <div class="flex items-center gap-3 text-base font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg><span>Certified And Insured</span></div>
+          <div class="flex items-center gap-3 text-base font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><span>24-Hour Response On Leaks</span></div>
+          <div class="flex items-center gap-3 text-base font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round" class="shrink-0"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span>Up To 25-Year Manufacturer Warranty</span></div>
+          <div class="flex items-center gap-3 text-base font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg><span>Serving Southern California Since 2012</span></div>
+        </div>
+      </div>
+      <div class="hero-form w-full lg:w-[420px] shrink-0">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 lg:p-8">
+          <div id="estimate-form"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects / Our Work -->
+  <section id="projects" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <p class="text-sm font-semibold uppercase tracking-widest mb-2 brand-text">Our Work</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#1a1a1a]" style="font-family:var(--font-heading)">Completed Projects</h2>
+        <p class="text-gray-500 mt-3 max-w-xl mx-auto">Homes and businesses across Orange County.</p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div class="relative rounded-2xl aspect-[4/3] overflow-hidden group"><img src="assets/img/aerial.jpg" alt="Roof Replacement" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/><div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,.62),transparent 58%)"></div><span class="absolute bottom-3 left-3 text-white text-sm font-semibold" style="font-family:var(--font-heading)">Roof Replacement</span></div>
+        <div class="relative rounded-2xl aspect-[4/3] overflow-hidden group"><img src="assets/img/tile.jpg" alt="Tile Roofing" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/><div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,.62),transparent 58%)"></div><span class="absolute bottom-3 left-3 text-white text-sm font-semibold" style="font-family:var(--font-heading)">Tile Roofing</span></div>
+        <div class="relative rounded-2xl aspect-[4/3] overflow-hidden group"><img src="assets/img/repair.jpg" alt="Roof Repair" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/><div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,.62),transparent 58%)"></div><span class="absolute bottom-3 left-3 text-white text-sm font-semibold" style="font-family:var(--font-heading)">Roof Repair</span></div>
+        <div class="relative rounded-2xl aspect-[4/3] overflow-hidden group"><img src="assets/img/coating.jpg" alt="Flat Roof Coating" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/><div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,.62),transparent 58%)"></div><span class="absolute bottom-3 left-3 text-white text-sm font-semibold" style="font-family:var(--font-heading)">Flat Roof Coating</span></div>
+      </div>
+      <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
+        <div class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span class="text-[#1a1a1a] font-semibold text-base">Certified &amp; Insured</span></div>
+        <div class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span class="text-[#1a1a1a] font-semibold text-base">Free Roof Inspection</span></div>
+        <div class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span class="text-[#1a1a1a] font-semibold text-base">Up To 25-Year Warranty</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Latest project (video) -->
+  <section id="latest" class="py-20" style="background:#1a1a1a">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="w-full lg:w-1/2 flex flex-col items-center">
+          <div class="rounded-2xl overflow-hidden shadow-2xl" style="max-width:330px;width:100%;background:#000">
+            <video controls preload="metadata" playsinline poster="assets/img/certificate-handover-poster.jpg"
+                   style="display:block;width:100%;height:auto;aspect-ratio:9/16">
+              <source src="assets/video/certificate-handover.mp4" type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+          </div>
+          <p class="text-xs text-gray-500 mt-4 text-center">Filmed on site by SoCal Roofers</p>
+        </div>
+        <div class="w-full lg:w-1/2">
+          <p class="text-sm font-semibold uppercase tracking-widest mb-2 brand-text">Latest Project</p>
+          <h2 class="text-3xl lg:text-4xl font-bold text-white mb-5" style="font-family:var(--font-heading)">The Day The Roof Is Signed Off</h2>
+          <p class="text-gray-400 leading-relaxed mb-6">Julio hands every customer their Certificate of Completion in person. That paper is what makes the warranty official.</p>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3 text-sm font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span>New roof finished and signed off</span></div>
+            <div class="flex items-center gap-3 text-sm font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span>Certificate handed over in person</span></div>
+            <div class="flex items-center gap-3 text-sm font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span>Warranty made official</span></div>
+          </div>
+          <a href="#estimate-form" class="inline-block mt-8 px-8 py-3 rounded-lg text-white font-bold text-sm transition-opacity hover:opacity-90 brand-bg">Get My Free Roof Inspection</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-20" style="background:#f5f5f5">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <p class="text-sm font-semibold uppercase tracking-widest mb-2 brand-text">Our Services</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#1a1a1a]" style="font-family:var(--font-heading)">Roofing For Homes And Businesses</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"><div class="h-48 overflow-hidden"><img src="assets/img/residential.jpg" alt="Residential Roofing" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></div><div class="p-5"><h3 class="text-base font-bold text-[#1a1a1a] mb-2" style="font-family:var(--font-heading)">Residential Roofing</h3><p class="text-sm text-gray-600 leading-relaxed">Shingle, tile, and flat roofs, installed by manufacturer-trained crews. We tear off the old roof and clean up when we finish.</p><a href="#estimate-form" class="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-colors hover:opacity-80 brand-text">Book a Free Inspection &rarr;</a></div></div>
+        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"><div class="h-48 overflow-hidden"><img src="assets/img/commercial.jpg" alt="Commercial Roofing" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></div><div class="p-5"><h3 class="text-base font-bold text-[#1a1a1a] mb-2" style="font-family:var(--font-heading)">Commercial Roofing</h3><p class="text-sm text-gray-600 leading-relaxed">Flat and low-slope roofs for warehouses, shops, and offices. We work around your hours.</p><a href="#estimate-form" class="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-colors hover:opacity-80 brand-text">Book a Free Inspection &rarr;</a></div></div>
+        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"><div class="h-48 overflow-hidden"><img src="assets/img/repair.jpg" alt="Roof Repair &amp; Leaks" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></div><div class="p-5"><h3 class="text-base font-bold text-[#1a1a1a] mb-2" style="font-family:var(--font-heading)">Roof Repair &amp; Leaks</h3><p class="text-sm text-gray-600 leading-relaxed">Cracked tiles, worn flashing, and leaks. We answer within 24 hours.</p><a href="#estimate-form" class="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-colors hover:opacity-80 brand-text">Book a Free Inspection &rarr;</a></div></div>
+      </div>
+      <div class="mt-12 flex justify-center">
+        <div class="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-full shadow-sm border border-gray-200">
+          <div class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></div>
+          <span class="text-sm font-semibold text-[#1a1a1a]">Trusted By Southern California Property Owners</span>
+        </div>
+      </div>
+      <div class="mt-10 flex flex-col items-center gap-3">
+        <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>Residential &amp; Commercial Roofing</div>
+        <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>Roof Replacement &amp; Re-Roofing</div>
+        <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>Roof Repair &amp; 24-Hour Leak Service</div>
+        <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>Flat Roof Coating &amp; Maintenance</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20" style="background:#f5f5f5">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="w-full lg:w-1/2">
+          <div class="rounded-2xl shadow-lg aspect-[4/3] overflow-hidden"><img src="assets/img/team.jpg" alt="SoCal Roofers crew working on a commercial flat roof in Southern California" class="w-full h-full object-cover"/></div>
+        </div>
+        <div class="w-full lg:w-1/2">
+          <p class="text-sm font-semibold uppercase tracking-widest mb-2 brand-text">About Us</p>
+          <h2 class="text-3xl lg:text-4xl font-bold text-[#1a1a1a] mb-5" style="font-family:var(--font-heading)">We Tell You What Your Roof Actually Needs</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">We have been roofing Southern California since 2012. Roofs here don&#x27;t get wrecked by storms, they bake in the sun and wear out slowly.</p>
+          <div class="flex flex-col gap-3 mb-8">
+            <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>Free inspection before we quote anything</div>
+            <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>We say repair when it only needs a repair</div>
+            <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>Up to 25-year manufacturer-backed warranty</div>
+            <div class="flex items-center gap-3 text-gray-700 text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>Financing available</div>
+          </div>
+          <a href="#estimate-form" class="inline-block px-8 py-3 rounded-lg text-white font-bold text-sm transition-opacity hover:opacity-90 brand-bg">Get My Free Roof Inspection</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="reviews" class="pt-10 pb-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <p class="text-sm font-semibold uppercase tracking-widest mb-2 brand-text">Reviews</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#1a1a1a]" style="font-family:var(--font-heading)">What Our Clients Say</h2>
+        <p class="text-gray-400 mt-3 text-sm max-w-xl mx-auto">Rated 5.0 on Google.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto" id="reviews-grid"></div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section id="contact" class="py-20 text-white text-center" style="background:#1e3a6e">
+    <div class="container mx-auto px-4 max-w-3xl">
+      <div class="flex items-center justify-center gap-2 mb-6">
+        <span style="display:inline-flex;align-items:center;background:#fff;border-radius:12px;padding:10px 16px"><img src="assets/img/logo.png" alt="SoCal Roofers" style="height:64px;width:auto;display:block" /></span>
+      </div>
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4" style="font-family:var(--font-heading)">Start With A Free Roof Inspection</h2>
+      <p class="text-lg mb-8 leading-relaxed" style="color:#ffffff">Call or book online. We come out, look at your roof, and tell you where it stands.</p>
+      <a href="tel:+19099639450" class="inline-flex items-center gap-3 text-xl font-bold mb-4 px-8 py-4 rounded-xl transition-all hover:opacity-90 active:scale-95" style="color:#1e3a6e;background:#ffffff">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        (909) 963-9450
+      </a>
+      <p class="text-sm mt-3" style="color:#ffffff">Free inspection · Certified &amp; Insured · Financing available</p>
+      <div class="mt-10"><a href="#estimate-form" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-bold text-base transition-all hover:opacity-90 active:scale-95 brand-bg">Get My Free Roof Inspection &rarr;</a></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background:#1a1a1a" class="text-white">
+    <div class="container mx-auto px-4 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span style="display:inline-flex;align-items:center;background:#fff;border-radius:12px;padding:10px 16px"><img src="assets/img/logo.png" alt="SoCal Roofers" style="height:42px;width:auto;display:block" /></span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-5">Roofing homes and businesses across Orange County since 2012. Repairs, new roofs, and 24-hour leak service.</p>
+          <div class="flex flex-col gap-3 text-sm text-gray-400">
+            <a href="tel:+19099639450" class="flex items-center gap-2 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-text shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>(909) 963-9450</a>
+
+            <a href="mailto:socalroofersinc@gmail.com" class="flex items-center gap-2 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-text shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><span>socalroofersinc@gmail.com</span></a>
+            <div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-text shrink-0"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg><span>Certified &amp; Insured Roofing Contractor</span></div>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold text-base mb-5" style="font-family:var(--font-heading)">Our Services</h3>
+          <ul class="flex flex-col gap-3 text-sm text-gray-400">
+            <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full brand-bg shrink-0"></span>Residential Roofing</a></li>
+            <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full brand-bg shrink-0"></span>Commercial Roofing</a></li>
+            <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full brand-bg shrink-0"></span>Roof Replacement</a></li>
+            <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full brand-bg shrink-0"></span>Roof Repair</a></li>
+            <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full brand-bg shrink-0"></span>24-Hour Emergency Leak Repairs</a></li>
+            <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full brand-bg shrink-0"></span>Flat Roof Coating</a></li>
+            <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full brand-bg shrink-0"></span>Roof Financing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold text-base mb-5" style="font-family:var(--font-heading)">Hours</h3>
+          <ul class="flex flex-col gap-2 text-sm text-gray-400">
+            <li class="flex justify-between max-w-[220px]"><span>Monday - Friday</span><span class="text-gray-300">8:00a - 6:00p</span></li>
+            <li class="flex justify-between max-w-[220px]"><span>Sunday</span><span class="text-gray-300">8:00a - 2:00p</span></li>
+          </ul>
+          <a href="#estimate-form" class="inline-block mt-6 px-6 py-3 rounded-lg text-white font-bold text-sm transition-opacity hover:opacity-90 brand-bg">Get My Free Roof Inspection</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-800">
+      <div class="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+        <span>&copy; 2026 SoCal Roofers. All rights reserved.</span>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-gray-300 transition-colors">Privacy Policy</a>
+          <span class="text-gray-700">&middot;</span>
+          <a href="#" class="hover:text-gray-300 transition-colors">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<script>
+(function(){var c=document.getElementById("navtoggle");if(!c)return;
+document.querySelectorAll(".nav-links a").forEach(function(a){
+  a.addEventListener("click",function(){c.checked=false;});});})();
+</script>
+<script src="site-config.js"></script>
+<script src="form.js"></script>
+</body>
+</html>
